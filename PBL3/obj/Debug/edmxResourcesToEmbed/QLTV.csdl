@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLTVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="MNV" />
+    </Key>
+    <Property Name="MNV" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NhanVien" Relationship="Self.FK_NhanVien_Account" FromRole="Account" ToRole="NhanVien" />
+  </EntityType>
+  <EntityType Name="MuonSach">
+    <Key>
+      <PropertyRef Name="Mã_mượn" />
+    </Key>
+    <Property Name="STT" Type="Int32" />
+    <Property Name="Mã_mượn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mã_Người_Mượn" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Tên_Người_Mượn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Mã_Sách" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Tình_Trạng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Thời_Gian_Mượn" Type="DateTime" Precision="3" />
+    <Property Name="Thời_Gian_Trả" Type="DateTime" Precision="3" />
+    <Property Name="Mã_Nhân_Viên" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="NguoiDung" Relationship="Self.FK_MuonSach_NguoiDung" FromRole="MuonSach" ToRole="NguoiDung" />
+    <NavigationProperty Name="NhanVien" Relationship="Self.FK_MuonSach_NhanVien" FromRole="MuonSach" ToRole="NhanVien" />
+    <NavigationProperty Name="Sach" Relationship="Self.FK_MuonSach_Sach" FromRole="MuonSach" ToRole="Sach" />
+  </EntityType>
+  <EntityType Name="NguoiDung">
+    <Key>
+      <PropertyRef Name="Mã_người_dùng" />
+    </Key>
+    <Property Name="Mã_người_dùng" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Tên_người_dùng" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Địa_chỉ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Lớp_SH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Năm_sinh" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+    <Property Name="Giời_tính" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="Int32" />
+    <NavigationProperty Name="MuonSaches" Relationship="Self.FK_MuonSach_NguoiDung" FromRole="NguoiDung" ToRole="MuonSach" />
+  </EntityType>
+  <EntityType Name="NhanVien">
+    <Key>
+      <PropertyRef Name="MNV" />
+    </Key>
+    <Property Name="MNV" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="NameNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_NhanVien_Account" FromRole="NhanVien" ToRole="Account" />
+    <NavigationProperty Name="MuonSaches" Relationship="Self.FK_MuonSach_NhanVien" FromRole="NhanVien" ToRole="MuonSach" />
+    <NavigationProperty Name="TraSaches" Relationship="Self.FK_TraSach_NhanVien" FromRole="NhanVien" ToRole="TraSach" />
+  </EntityType>
+  <EntityType Name="Sach">
+    <Key>
+      <PropertyRef Name="Mã_sách" />
+    </Key>
+    <Property Name="Mã_sách" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Tên_sách" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Năm_xuất_bản" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Nhà_xuất_bản" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Số_lượng" Type="Int32" />
+    <Property Name="Tác_giả" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Loại" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Giá" Type="Int32" />
+    <NavigationProperty Name="MuonSaches" Relationship="Self.FK_MuonSach_Sach" FromRole="Sach" ToRole="MuonSach" />
+    <NavigationProperty Name="TraSaches" Relationship="Self.FK_TraSach_Sach" FromRole="Sach" ToRole="TraSach" />
+  </EntityType>
+  <EntityType Name="TaiKhoanHienTai">
+    <Key>
+      <PropertyRef Name="MNV" />
+    </Key>
+    <Property Name="MNV" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TraSach">
+    <Key>
+      <PropertyRef Name="Mã_Trả" />
+    </Key>
+    <Property Name="STT" Type="Int32" />
+    <Property Name="Mã_Trả" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mã_Người_Trả" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Tên_Người_Trả" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Mã_Sách" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Tình_Trạng" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Thời_Gian_Trả" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Đã_Trả" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mã_Nhân_Viên" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="NhanVien" Relationship="Self.FK_TraSach_NhanVien" FromRole="TraSach" ToRole="NhanVien" />
+    <NavigationProperty Name="Sach" Relationship="Self.FK_TraSach_Sach" FromRole="TraSach" ToRole="Sach" />
+  </EntityType>
+  <Association Name="FK_NhanVien_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="MNV" />
+      </Principal>
+      <Dependent Role="NhanVien">
+        <PropertyRef Name="MNV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MuonSach_NguoiDung">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="Mã_người_dùng" />
+      </Principal>
+      <Dependent Role="MuonSach">
+        <PropertyRef Name="Mã_Người_Mượn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MuonSach_NhanVien">
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MNV" />
+      </Principal>
+      <Dependent Role="MuonSach">
+        <PropertyRef Name="Mã_Nhân_Viên" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MuonSach_Sach">
+    <End Role="Sach" Type="Self.Sach" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="Mã_sách" />
+      </Principal>
+      <Dependent Role="MuonSach">
+        <PropertyRef Name="Mã_Sách" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TraSach_NhanVien">
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TraSach" Type="Self.TraSach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MNV" />
+      </Principal>
+      <Dependent Role="TraSach">
+        <PropertyRef Name="Mã_Nhân_Viên" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TraSach_Sach">
+    <End Role="Sach" Type="Self.Sach" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TraSach" Type="Self.TraSach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="Mã_sách" />
+      </Principal>
+      <Dependent Role="TraSach">
+        <PropertyRef Name="Mã_Sách" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLTV" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="MuonSaches" EntityType="Self.MuonSach" />
+    <EntitySet Name="NguoiDungs" EntityType="Self.NguoiDung" />
+    <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+    <EntitySet Name="Saches" EntityType="Self.Sach" />
+    <EntitySet Name="TaiKhoanHienTais" EntityType="Self.TaiKhoanHienTai" />
+    <EntitySet Name="TraSaches" EntityType="Self.TraSach" />
+    <AssociationSet Name="FK_NhanVien_Account" Association="Self.FK_NhanVien_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="NhanVien" EntitySet="NhanViens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MuonSach_NguoiDung" Association="Self.FK_MuonSach_NguoiDung">
+      <End Role="NguoiDung" EntitySet="NguoiDungs" />
+      <End Role="MuonSach" EntitySet="MuonSaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MuonSach_NhanVien" Association="Self.FK_MuonSach_NhanVien">
+      <End Role="NhanVien" EntitySet="NhanViens" />
+      <End Role="MuonSach" EntitySet="MuonSaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MuonSach_Sach" Association="Self.FK_MuonSach_Sach">
+      <End Role="Sach" EntitySet="Saches" />
+      <End Role="MuonSach" EntitySet="MuonSaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TraSach_NhanVien" Association="Self.FK_TraSach_NhanVien">
+      <End Role="NhanVien" EntitySet="NhanViens" />
+      <End Role="TraSach" EntitySet="TraSaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TraSach_Sach" Association="Self.FK_TraSach_Sach">
+      <End Role="Sach" EntitySet="Saches" />
+      <End Role="TraSach" EntitySet="TraSaches" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

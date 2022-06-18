@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLTVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="MNV" />
+          </Key>
+          <Property Name="MNV" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MuonSach">
+          <Key>
+            <PropertyRef Name="Mã mượn" />
+          </Key>
+          <Property Name="STT" Type="int" />
+          <Property Name="Mã mượn" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mã Người Mượn" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Tên Người Mượn" Type="nvarchar(max)" />
+          <Property Name="Mã Sách" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Tình Trạng" Type="nvarchar" MaxLength="50" />
+          <Property Name="Thời Gian Mượn" Type="datetime" />
+          <Property Name="Thời Gian Trả" Type="datetime" />
+          <Property Name="Mã Nhân Viên" Type="nchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NguoiDung">
+          <Key>
+            <PropertyRef Name="Mã người dùng" />
+          </Key>
+          <Property Name="Mã người dùng" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Tên người dùng" Type="nvarchar(max)" />
+          <Property Name="Địa chỉ" Type="nvarchar(max)" />
+          <Property Name="Lớp SH" Type="nvarchar" MaxLength="50" />
+          <Property Name="Năm sinh" Type="nchar" MaxLength="4" />
+          <Property Name="Giời tính" Type="nvarchar" MaxLength="10" />
+          <Property Name="SDT" Type="int" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MNV" />
+          </Key>
+          <Property Name="MNV" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="NameNV" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="nchar" MaxLength="11" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="3" />
+          <Property Name="DiaChi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="Mã sách" />
+          </Key>
+          <Property Name="Mã sách" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Tên sách" Type="nvarchar(max)" />
+          <Property Name="Năm xuất bản" Type="nvarchar(max)" />
+          <Property Name="Nhà xuất bản" Type="nvarchar(max)" />
+          <Property Name="Số lượng" Type="int" />
+          <Property Name="Tác giả" Type="nvarchar(max)" />
+          <Property Name="Loại" Type="nvarchar(max)" />
+          <Property Name="Giá" Type="int" />
+        </EntityType>
+        <EntityType Name="TaiKhoanHienTai">
+          <Key>
+            <PropertyRef Name="MNV" />
+          </Key>
+          <Property Name="MNV" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QLTV.dbo.TraSach' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TraSach">
+          <Key>
+            <PropertyRef Name="Mã Trả" />
+          </Key>
+          <Property Name="STT" Type="int" />
+          <Property Name="Mã Trả" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Mã Người Trả" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Tên Người Trả" Type="nvarchar(max)" />
+          <Property Name="Mã Sách" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Tình Trạng" Type="nchar" MaxLength="10" />
+          <Property Name="Thời Gian Trả" Type="nchar" MaxLength="10" />
+          <Property Name="Đã Trả" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mã Nhân Viên" Type="nchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_MuonSach_NguoiDung">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="Mã người dùng" />
+            </Principal>
+            <Dependent Role="MuonSach">
+              <PropertyRef Name="Mã Người Mượn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MuonSach_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MNV" />
+            </Principal>
+            <Dependent Role="MuonSach">
+              <PropertyRef Name="Mã Nhân Viên" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MuonSach_Sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Mã sách" />
+            </Principal>
+            <Dependent Role="MuonSach">
+              <PropertyRef Name="Mã Sách" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NhanVien_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="MNV" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="MNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraSach_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TraSach" Type="Self.TraSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MNV" />
+            </Principal>
+            <Dependent Role="TraSach">
+              <PropertyRef Name="Mã Nhân Viên" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraSach_Sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TraSach" Type="Self.TraSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Mã sách" />
+            </Principal>
+            <Dependent Role="TraSach">
+              <PropertyRef Name="Mã Sách" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLTVModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MuonSach" EntityType="Self.MuonSach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaiKhoanHienTai" EntityType="Self.TaiKhoanHienTai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraSach" EntityType="Self.TraSach" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TraSach].[STT] AS [STT], 
+    [TraSach].[Mã Trả] AS [Mã Trả], 
+    [TraSach].[Mã Người Trả] AS [Mã Người Trả], 
+    [TraSach].[Tên Người Trả] AS [Tên Người Trả], 
+    [TraSach].[Mã Sách] AS [Mã Sách], 
+    [TraSach].[Tình Trạng] AS [Tình Trạng], 
+    [TraSach].[Thời Gian Trả] AS [Thời Gian Trả], 
+    [TraSach].[Đã Trả] AS [Đã Trả], 
+    [TraSach].[Mã Nhân Viên] AS [Mã Nhân Viên]
+    FROM [dbo].[TraSach] AS [TraSach]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_MuonSach_NguoiDung" Association="Self.FK_MuonSach_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+            <End Role="MuonSach" EntitySet="MuonSach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MuonSach_NhanVien" Association="Self.FK_MuonSach_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="MuonSach" EntitySet="MuonSach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MuonSach_Sach" Association="Self.FK_MuonSach_Sach">
+            <End Role="Sach" EntitySet="Sach" />
+            <End Role="MuonSach" EntitySet="MuonSach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NhanVien_Account" Association="Self.FK_NhanVien_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="NhanVien" EntitySet="NhanVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraSach_NhanVien" Association="Self.FK_TraSach_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="TraSach" EntitySet="TraSach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraSach_Sach" Association="Self.FK_TraSach_Sach">
+            <End Role="Sach" EntitySet="Sach" />
+            <End Role="TraSach" EntitySet="TraSach" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLTVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="MNV" />
+          </Key>
+          <Property Name="MNV" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK_NhanVien_Account" FromRole="Account" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="MuonSach">
+          <Key>
+            <PropertyRef Name="Mã_mượn" />
+          </Key>
+          <Property Name="STT" Type="Int32" />
+          <Property Name="Mã_mượn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mã_Người_Mượn" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tên_Người_Mượn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mã_Sách" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tình_Trạng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Thời_Gian_Mượn" Type="DateTime" Precision="3" />
+          <Property Name="Thời_Gian_Trả" Type="DateTime" Precision="3" />
+          <Property Name="Mã_Nhân_Viên" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_MuonSach_NguoiDung" FromRole="MuonSach" ToRole="NguoiDung" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK_MuonSach_NhanVien" FromRole="MuonSach" ToRole="NhanVien" />
+          <NavigationProperty Name="Sach" Relationship="Self.FK_MuonSach_Sach" FromRole="MuonSach" ToRole="Sach" />
+        </EntityType>
+        <EntityType Name="NguoiDung">
+          <Key>
+            <PropertyRef Name="Mã_người_dùng" />
+          </Key>
+          <Property Name="Mã_người_dùng" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tên_người_dùng" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Địa_chỉ" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lớp_SH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Năm_sinh" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="Giời_tính" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="Int32" />
+          <NavigationProperty Name="MuonSaches" Relationship="Self.FK_MuonSach_NguoiDung" FromRole="NguoiDung" ToRole="MuonSach" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MNV" />
+          </Key>
+          <Property Name="MNV" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="NameNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_NhanVien_Account" FromRole="NhanVien" ToRole="Account" />
+          <NavigationProperty Name="MuonSaches" Relationship="Self.FK_MuonSach_NhanVien" FromRole="NhanVien" ToRole="MuonSach" />
+          <NavigationProperty Name="TraSaches" Relationship="Self.FK_TraSach_NhanVien" FromRole="NhanVien" ToRole="TraSach" />
+        </EntityType>
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="Mã_sách" />
+          </Key>
+          <Property Name="Mã_sách" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tên_sách" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Năm_xuất_bản" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nhà_xuất_bản" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Số_lượng" Type="Int32" />
+          <Property Name="Tác_giả" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Loại" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Giá" Type="Int32" />
+          <NavigationProperty Name="MuonSaches" Relationship="Self.FK_MuonSach_Sach" FromRole="Sach" ToRole="MuonSach" />
+          <NavigationProperty Name="TraSaches" Relationship="Self.FK_TraSach_Sach" FromRole="Sach" ToRole="TraSach" />
+        </EntityType>
+        <EntityType Name="TaiKhoanHienTai">
+          <Key>
+            <PropertyRef Name="MNV" />
+          </Key>
+          <Property Name="MNV" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TraSach">
+          <Key>
+            <PropertyRef Name="Mã_Trả" />
+          </Key>
+          <Property Name="STT" Type="Int32" />
+          <Property Name="Mã_Trả" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mã_Người_Trả" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tên_Người_Trả" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mã_Sách" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Tình_Trạng" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Thời_Gian_Trả" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Đã_Trả" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mã_Nhân_Viên" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK_TraSach_NhanVien" FromRole="TraSach" ToRole="NhanVien" />
+          <NavigationProperty Name="Sach" Relationship="Self.FK_TraSach_Sach" FromRole="TraSach" ToRole="Sach" />
+        </EntityType>
+        <Association Name="FK_NhanVien_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="MNV" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="MNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MuonSach_NguoiDung">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="Mã_người_dùng" />
+            </Principal>
+            <Dependent Role="MuonSach">
+              <PropertyRef Name="Mã_Người_Mượn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MuonSach_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MNV" />
+            </Principal>
+            <Dependent Role="MuonSach">
+              <PropertyRef Name="Mã_Nhân_Viên" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MuonSach_Sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MuonSach" Type="Self.MuonSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Mã_sách" />
+            </Principal>
+            <Dependent Role="MuonSach">
+              <PropertyRef Name="Mã_Sách" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraSach_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TraSach" Type="Self.TraSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MNV" />
+            </Principal>
+            <Dependent Role="TraSach">
+              <PropertyRef Name="Mã_Nhân_Viên" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraSach_Sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TraSach" Type="Self.TraSach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Mã_sách" />
+            </Principal>
+            <Dependent Role="TraSach">
+              <PropertyRef Name="Mã_Sách" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLTV" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="MuonSaches" EntityType="Self.MuonSach" />
+          <EntitySet Name="NguoiDungs" EntityType="Self.NguoiDung" />
+          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+          <EntitySet Name="Saches" EntityType="Self.Sach" />
+          <EntitySet Name="TaiKhoanHienTais" EntityType="Self.TaiKhoanHienTai" />
+          <EntitySet Name="TraSaches" EntityType="Self.TraSach" />
+          <AssociationSet Name="FK_NhanVien_Account" Association="Self.FK_NhanVien_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="NhanVien" EntitySet="NhanViens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MuonSach_NguoiDung" Association="Self.FK_MuonSach_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="MuonSach" EntitySet="MuonSaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MuonSach_NhanVien" Association="Self.FK_MuonSach_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="MuonSach" EntitySet="MuonSaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MuonSach_Sach" Association="Self.FK_MuonSach_Sach">
+            <End Role="Sach" EntitySet="Saches" />
+            <End Role="MuonSach" EntitySet="MuonSaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraSach_NhanVien" Association="Self.FK_TraSach_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="TraSach" EntitySet="TraSaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraSach_Sach" Association="Self.FK_TraSach_Sach">
+            <End Role="Sach" EntitySet="Saches" />
+            <End Role="TraSach" EntitySet="TraSaches" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLTVModelStoreContainer" CdmEntityContainer="QLTV">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="QLTVModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="MNV" ColumnName="MNV" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MuonSaches">
+            <EntityTypeMapping TypeName="QLTVModel.MuonSach">
+              <MappingFragment StoreEntitySet="MuonSach">
+                <ScalarProperty Name="STT" ColumnName="STT" />
+                <ScalarProperty Name="Mã_mượn" ColumnName="Mã mượn" />
+                <ScalarProperty Name="Mã_Người_Mượn" ColumnName="Mã Người Mượn" />
+                <ScalarProperty Name="Tên_Người_Mượn" ColumnName="Tên Người Mượn" />
+                <ScalarProperty Name="Mã_Sách" ColumnName="Mã Sách" />
+                <ScalarProperty Name="Tình_Trạng" ColumnName="Tình Trạng" />
+                <ScalarProperty Name="Thời_Gian_Mượn" ColumnName="Thời Gian Mượn" />
+                <ScalarProperty Name="Thời_Gian_Trả" ColumnName="Thời Gian Trả" />
+                <ScalarProperty Name="Mã_Nhân_Viên" ColumnName="Mã Nhân Viên" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NguoiDungs">
+            <EntityTypeMapping TypeName="QLTVModel.NguoiDung">
+              <MappingFragment StoreEntitySet="NguoiDung">
+                <ScalarProperty Name="Mã_người_dùng" ColumnName="Mã người dùng" />
+                <ScalarProperty Name="Tên_người_dùng" ColumnName="Tên người dùng" />
+                <ScalarProperty Name="Địa_chỉ" ColumnName="Địa chỉ" />
+                <ScalarProperty Name="Lớp_SH" ColumnName="Lớp SH" />
+                <ScalarProperty Name="Năm_sinh" ColumnName="Năm sinh" />
+                <ScalarProperty Name="Giời_tính" ColumnName="Giời tính" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="QLTVModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="MNV" ColumnName="MNV" />
+                <ScalarProperty Name="NameNV" ColumnName="NameNV" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Saches">
+            <EntityTypeMapping TypeName="QLTVModel.Sach">
+              <MappingFragment StoreEntitySet="Sach">
+                <ScalarProperty Name="Mã_sách" ColumnName="Mã sách" />
+                <ScalarProperty Name="Tên_sách" ColumnName="Tên sách" />
+                <ScalarProperty Name="Năm_xuất_bản" ColumnName="Năm xuất bản" />
+                <ScalarProperty Name="Nhà_xuất_bản" ColumnName="Nhà xuất bản" />
+                <ScalarProperty Name="Số_lượng" ColumnName="Số lượng" />
+                <ScalarProperty Name="Tác_giả" ColumnName="Tác giả" />
+                <ScalarProperty Name="Loại" ColumnName="Loại" />
+                <ScalarProperty Name="Giá" ColumnName="Giá" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaiKhoanHienTais">
+            <EntityTypeMapping TypeName="QLTVModel.TaiKhoanHienTai">
+              <MappingFragment StoreEntitySet="TaiKhoanHienTai">
+                <ScalarProperty Name="MNV" ColumnName="MNV" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TraSaches">
+            <EntityTypeMapping TypeName="QLTVModel.TraSach">
+              <MappingFragment StoreEntitySet="TraSach">
+                <ScalarProperty Name="STT" ColumnName="STT" />
+                <ScalarProperty Name="Mã_Trả" ColumnName="Mã Trả" />
+                <ScalarProperty Name="Mã_Người_Trả" ColumnName="Mã Người Trả" />
+                <ScalarProperty Name="Tên_Người_Trả" ColumnName="Tên Người Trả" />
+                <ScalarProperty Name="Mã_Sách" ColumnName="Mã Sách" />
+                <ScalarProperty Name="Tình_Trạng" ColumnName="Tình Trạng" />
+                <ScalarProperty Name="Thời_Gian_Trả" ColumnName="Thời Gian Trả" />
+                <ScalarProperty Name="Đã_Trả" ColumnName="Đã Trả" />
+                <ScalarProperty Name="Mã_Nhân_Viên" ColumnName="Mã Nhân Viên" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram DiagramId="7cfa2b2f4d2c4801a65466c1c00f452c" Name="Diagram1">
+        <EntityTypeShape EntityType="QLTVModel.Account" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTVModel.MuonSach" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTVModel.NguoiDung" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTVModel.NhanVien" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTVModel.Sach" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTVModel.TaiKhoanHienTai" Width="1.5" PointX="5.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLTVModel.TraSach" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="QLTVModel.FK_NhanVien_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTVModel.FK_MuonSach_NguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTVModel.FK_MuonSach_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTVModel.FK_MuonSach_Sach" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTVModel.FK_TraSach_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QLTVModel.FK_TraSach_Sach" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QLTVModelStoreContainer" CdmEntityContainer="QLTV">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="QLTVModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="MNV" ColumnName="MNV" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MuonSaches">
+      <EntityTypeMapping TypeName="QLTVModel.MuonSach">
+        <MappingFragment StoreEntitySet="MuonSach">
+          <ScalarProperty Name="STT" ColumnName="STT" />
+          <ScalarProperty Name="Mã_mượn" ColumnName="Mã mượn" />
+          <ScalarProperty Name="Mã_Người_Mượn" ColumnName="Mã Người Mượn" />
+          <ScalarProperty Name="Tên_Người_Mượn" ColumnName="Tên Người Mượn" />
+          <ScalarProperty Name="Mã_Sách" ColumnName="Mã Sách" />
+          <ScalarProperty Name="Tình_Trạng" ColumnName="Tình Trạng" />
+          <ScalarProperty Name="Thời_Gian_Mượn" ColumnName="Thời Gian Mượn" />
+          <ScalarProperty Name="Thời_Gian_Trả" ColumnName="Thời Gian Trả" />
+          <ScalarProperty Name="Mã_Nhân_Viên" ColumnName="Mã Nhân Viên" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NguoiDungs">
+      <EntityTypeMapping TypeName="QLTVModel.NguoiDung">
+        <MappingFragment StoreEntitySet="NguoiDung">
+          <ScalarProperty Name="Mã_người_dùng" ColumnName="Mã người dùng" />
+          <ScalarProperty Name="Tên_người_dùng" ColumnName="Tên người dùng" />
+          <ScalarProperty Name="Địa_chỉ" ColumnName="Địa chỉ" />
+          <ScalarProperty Name="Lớp_SH" ColumnName="Lớp SH" />
+          <ScalarProperty Name="Năm_sinh" ColumnName="Năm sinh" />
+          <ScalarProperty Name="Giời_tính" ColumnName="Giời tính" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhanViens">
+      <EntityTypeMapping TypeName="QLTVModel.NhanVien">
+        <MappingFragment StoreEntitySet="NhanVien">
+          <ScalarProperty Name="MNV" ColumnName="MNV" />
+          <ScalarProperty Name="NameNV" ColumnName="NameNV" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Saches">
+      <EntityTypeMapping TypeName="QLTVModel.Sach">
+        <MappingFragment StoreEntitySet="Sach">
+          <ScalarProperty Name="Mã_sách" ColumnName="Mã sách" />
+          <ScalarProperty Name="Tên_sách" ColumnName="Tên sách" />
+          <ScalarProperty Name="Năm_xuất_bản" ColumnName="Năm xuất bản" />
+          <ScalarProperty Name="Nhà_xuất_bản" ColumnName="Nhà xuất bản" />
+          <ScalarProperty Name="Số_lượng" ColumnName="Số lượng" />
+          <ScalarProperty Name="Tác_giả" ColumnName="Tác giả" />
+          <ScalarProperty Name="Loại" ColumnName="Loại" />
+          <ScalarProperty Name="Giá" ColumnName="Giá" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaiKhoanHienTais">
+      <EntityTypeMapping TypeName="QLTVModel.TaiKhoanHienTai">
+        <MappingFragment StoreEntitySet="TaiKhoanHienTai">
+          <ScalarProperty Name="MNV" ColumnName="MNV" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TraSaches">
+      <EntityTypeMapping TypeName="QLTVModel.TraSach">
+        <MappingFragment StoreEntitySet="TraSach">
+          <ScalarProperty Name="STT" ColumnName="STT" />
+          <ScalarProperty Name="Mã_Trả" ColumnName="Mã Trả" />
+          <ScalarProperty Name="Mã_Người_Trả" ColumnName="Mã Người Trả" />
+          <ScalarProperty Name="Tên_Người_Trả" ColumnName="Tên Người Trả" />
+          <ScalarProperty Name="Mã_Sách" ColumnName="Mã Sách" />
+          <ScalarProperty Name="Tình_Trạng" ColumnName="Tình Trạng" />
+          <ScalarProperty Name="Thời_Gian_Trả" ColumnName="Thời Gian Trả" />
+          <ScalarProperty Name="Đã_Trả" ColumnName="Đã Trả" />
+          <ScalarProperty Name="Mã_Nhân_Viên" ColumnName="Mã Nhân Viên" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
